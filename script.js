@@ -1,63 +1,148 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Header Scroll Effect
-    const header = document.querySelector('.js-header');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('is-scrolled');
-        } else {
-            header.classList.remove('is-scrolled');
-        }
+
+    /* --- テーマ切替（M3 ダークテーマ） --- */
+    const root = document.documentElement;
+    const themeToggle = document.querySelector('.js-theme-toggle');
+    const stored = localStorage.getItem('slowday-theme');
+    if (stored === 'dark' || stored === 'light') {
+        root.dataset.theme = stored;
+    }
+    syncThemeIcon();
+
+    themeToggle.addEventListener('click', () => {
+        root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('slowday-theme', root.dataset.theme);
+        syncThemeIcon();
     });
 
-    // Fade-in Animation on Scroll
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.15
-    };
+    function syncThemeIcon() {
+        const dark = root.dataset.theme === 'dark';
+        themeToggle.setAttribute('aria-label', dark ? 'ライトモードに切り替え' : 'ダークモードに切り替え');
+    }
 
-    const observer = new IntersectionObserver((entries, observer) => {
+    /* --- デモバナーの閉じる --- */
+    const demoBanner = document.querySelector('.js-demo-banner');
+    const bannerClose = document.querySelector('.js-banner-close');
+    if (bannerClose && demoBanner) {
+        bannerClose.addEventListener('click', () => {
+            demoBanner.classList.add('hide');
+            setTimeout(() => { demoBanner.remove(); }, 350);
+        });
+    }
+
+    /* --- Top App Bar のスクロール変化 --- */
+    const header = document.querySelector('.js-header');
+    const fab = document.querySelector('.js-fab');
+    const onScroll = () => {
+        header.classList.toggle('is-scrolled', window.scrollY > 24);
+        const showFab = window.scrollY > 600;
+        fab.hidden = false;
+        fab.classList.toggle('show', showFab);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    fab.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* --- ナビゲーションドロワー --- */
+    const navToggle = document.querySelector('.js-nav-toggle');
+    const drawer = document.querySelector('.js-drawer');
+    const scrim = document.querySelector('.js-scrim');
+    const drawerClose = document.querySelector('.js-drawer-close');
+
+    function openDrawer() {
+        scrim.hidden = false;
+        requestAnimationFrame(() => {
+            scrim.classList.add('show');
+            drawer.classList.add('open');
+        });
+        drawer.setAttribute('aria-hidden', 'false');
+        navToggle.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+        scrim.classList.remove('show');
+        drawer.classList.remove('open');
+        drawer.setAttribute('aria-hidden', 'true');
+        navToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        setTimeout(() => { scrim.hidden = true; }, 320);
+    }
+    navToggle.addEventListener('click', openDrawer);
+    drawerClose.addEventListener('click', closeDrawer);
+    scrim.addEventListener('click', closeDrawer);
+    drawer.querySelectorAll('.drawer-link').forEach(link => {
+        link.addEventListener('click', closeDrawer);
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+    });
+
+    /* --- アンカースムーススクロール（固定ヘッダ分のオフセット） --- */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+            const id = anchor.getAttribute('href');
+            if (id === '#') return;
+            const target = document.querySelector(id);
+            if (!target) return;
+            e.preventDefault();
+            const top = target.getBoundingClientRect().top + window.pageYOffset - 72;
+            window.scrollTo({ top, behavior: 'smooth' });
+            history.replaceState(null, '', id);
+        });
+    });
+
+    /* --- スクロールリビール --- */
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target); // Trigger only once
+                observer.unobserve(entry.target);
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    const fadeSections = document.querySelectorAll('.fade-in-section');
-    fadeSections.forEach(section => {
-        observer.observe(section);
-    });
+    /* --- コンタクトフォーム → スナックバー --- */
+    const form = document.getElementById('contact-form');
+    const snackbar = document.querySelector('.js-snackbar');
+    const snackbarClose = document.querySelector('.js-snackbar-close');
+    let snackbarTimer;
 
-    // Smooth Scrolling for Anchor Links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                const headerOffset = 80; // Offset for fixed header
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // Mobile Menu Toggle (Basic setup)
-    const hamburger = document.querySelector('.js-hamburger');
-    if(hamburger) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('is-active');
-            // If we implement a mobile menu drawer in the future, we toggle it here.
-            alert("This portfolio uses a minimal layout. Mobile menu drawer can be implemented if required.");
-        });
+    function showSnackbar() {
+        clearTimeout(snackbarTimer);
+        snackbar.classList.add('show');
+        snackbarTimer = setTimeout(() => snackbar.classList.remove('show'), 5000);
     }
+    snackbarClose.addEventListener('click', () => {
+        clearTimeout(snackbarTimer);
+        snackbar.classList.remove('show');
+    });
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+        form.reset();
+        showSnackbar();
+    });
+
+    /* --- M3 リップル --- */
+    document.querySelectorAll('.btn, .icon-btn, .fab, .drawer-link').forEach(el => {
+        el.addEventListener('pointerdown', (e) => {
+            const rect = el.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+            ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+            el.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        });
+    });
 });

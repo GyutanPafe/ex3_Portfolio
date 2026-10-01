@@ -1,211 +1,272 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SLOWDAY | 余白のある暮らし</title>
-    <meta name="description" content="忙しい日常の中で、ほんの少し立ち止まる時間を提供する。コーヒー、音楽、空間を通して、日常の質を静かに整えるライフスタイルブランド「SLOWDAY」。">
+    <title>SLOWDAY | 水戸の珈琲店 — 余白のある一日を</title>
+    <meta name="description" content="茨城県水戸市の小さな珈琲店 SLOWDAY。週に一度焙煎するオリジナルブレンドと、静かな音楽のかかる店内で、急がない時間をどうぞ。">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="header js-header">
-        <div class="header-inner">
-            <h1 class="logo"><a href="#">SLOWDAY</a></h1>
-            <nav class="nav">
-                <ul class="nav-list">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#products">Products</a></li>
-                    <li><a href="#journal">Journal</a></li>
-                    <li><a href="#access">Access</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
+
+    <!-- Top App Bar -->
+    <header class="top-app-bar js-header">
+        <div class="top-app-bar-inner">
+            <button class="icon-btn nav-toggle js-nav-toggle" aria-label="メニューを開く" aria-expanded="false">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+            </button>
+            <a href="#top" class="brand">SLOWDAY</a>
+            <nav class="nav-desktop" aria-label="メインナビゲーション">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#products" class="nav-link">Products</a>
+                <a href="#journal" class="nav-link">Journal</a>
+                <a href="#access" class="nav-link">Access</a>
+                <a href="#contact" class="nav-link">Contact</a>
             </nav>
-            <div class="hamburger js-hamburger">
-                <span></span><span></span>
-            </div>
+            <button class="icon-btn theme-toggle js-theme-toggle" aria-label="ダークモードに切り替え">
+                <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 7a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0-5 2.4 3.4 4.1-.4-.3 4.1L22 12l-3.8 2.8.3 4.1-4.1-.3L12 22l-2.4-3.4-4.1.3.3-4.1L2 12l3.8-2.8-.3-4.1 4.1.4z"/></svg>
+            </button>
         </div>
     </header>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="hero fade-in-section">
-            <div class="hero-image-wrapper">
-                <img src="assets/images/hero_coffee_window_1777576684182.png" alt="窓際のコーヒー" class="hero-image" loading="lazy">
-            </div>
-            <div class="hero-text fade-in-up delay-1">
-                <p class="hero-catch">余白のある暮らし</p>
-                <p class="hero-sub">a quiet moment for your daily life.</p>
+    <!-- Navigation Drawer (modal) -->
+    <div class="scrim js-scrim" hidden></div>
+    <aside class="drawer js-drawer" aria-label="ナビゲーションドロワー" aria-hidden="true">
+        <div class="drawer-head">
+            <span class="brand">SLOWDAY</span>
+            <button class="icon-btn js-drawer-close" aria-label="メニューを閉じる">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7l1.4-1.4 6.3 6.3 6.3-6.3z"/></svg>
+            </button>
+        </div>
+        <nav class="drawer-nav">
+            <a href="#about" class="drawer-link">About<span class="drawer-sub">店について</span></a>
+            <a href="#products" class="drawer-link">Products<span class="drawer-sub">豆とグッズ</span></a>
+            <a href="#journal" class="drawer-link">Journal<span class="drawer-sub">日々の記録</span></a>
+            <a href="#access" class="drawer-link">Access<span class="drawer-sub">アクセス</span></a>
+            <a href="#contact" class="drawer-link">Contact<span class="drawer-sub">お問い合わせ</span></a>
+        </nav>
+    </aside>
+
+    <main id="top">
+
+        <!-- Demo Banner -->
+        <div class="demo-banner js-demo-banner" role="note">
+            <p>このサイトはデモです。店舗・商品・価格はすべて架空のものです。</p>
+            <button type="button" class="banner-close js-banner-close">閉じる</button>
+        </div>
+
+        <!-- Hero -->
+        <section class="hero">
+            <img src="assets/images/hero.png" alt="雨の窓辺に置かれた温かいコーヒー" class="hero-img">
+            <div class="hero-scrim"></div>
+            <div class="hero-content">
+                <p class="hero-eyebrow">SLOWDAY COFFEE — MITO, IBARAKI</p>
+                <h1 class="hero-title">余白のある、<br>一日を。</h1>
+                <p class="hero-sub">週に一度焙煎する珈琲と、静かな音楽。<br>水戸の小さな店で、急がない時間をどうぞ。</p>
+                <div class="hero-actions">
+                    <a href="#products" class="btn btn-filled">豆を見る</a>
+                    <a href="#access" class="btn btn-text-light">アクセス</a>
+                </div>
             </div>
         </section>
 
-        <!-- Recommendation Section -->
-        <section class="recommendation section fade-in-section">
+        <!-- Recommendation -->
+        <section class="recommend">
             <div class="container">
-                <div class="recommendation-content">
-                    <p class="section-label">Today's Recommend</p>
-                    <h2 class="recommendation-title">Rainy Day Blend</h2>
-                    <p class="recommendation-desc">雨の日の静けさに溶け込む、深煎りのオリジナルブレンド。<br>少し温度を下げて、ゆっくりと香りの変化をお楽しみください。</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="about section fade-in-section">
-            <div class="container grid-layout">
-                <div class="grid-image">
-                    <img src="assets/images/about_interior_1777576706648.png" alt="SLOWDAYの店内" loading="lazy">
-                </div>
-                <div class="grid-text">
-                    <h2 class="section-title">About</h2>
-                    <p class="about-lead">忙しい日々に、<br>小さな「句読点」を。</p>
-                    <p class="about-desc">
-                        私たちは、日々を劇的に変えることはできません。<br>
-                        しかし、一杯のコーヒー、心地よい音楽、そして静かな空間を通して、<br>
-                        乱れた呼吸を整えるような、そんな時間を提供したいと考えています。<br><br>
-                        飾り立てない、等身大の生活。<br>
-                        「SLOWDAY」は、あなたの日常に静かに寄り添います。
+                <div class="card tonal reveal">
+                    <span class="chip">季節限定</span>
+                    <span class="chip">深煎り</span>
+                    <h2 class="headline">Rainy Day Blend</h2>
+                    <p class="body-large">
+                        雨の日の静けさに合わせて焙り上げた、今月のブレンド。
+                        ブラジルとグアテマラを深煎りに。温度が下がると甘みが浮かぶので、
+                        ゆっくり冷まして飲むのがおすすめです。
                     </p>
-                    <div class="staff-voice">
-                        <p>「今日は少し肌寒いので、温かいラテがおすすめです。」 - Staff M.</p>
+                    <p class="recommend-price">200g ¥1,800（税込）</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section id="about" class="section">
+            <div class="container two-col">
+                <figure class="media-frame reveal">
+                    <img src="assets/images/interior.png" alt="SLOWDAYの店内。大きな窓のそばに観葉植物と木の椅子">
+                </figure>
+                <div class="reveal" style="--reveal-delay:.1s">
+                    <p class="label">About</p>
+                    <h2 class="headline">急がない午後に、<br>ちいさな句読点を。</h2>
+                    <p class="body">
+                        SLOWDAYは、水戸の路地にある12席の小さな珈琲店です。<br>
+                        豆は週に一度、店内の小さな焙煎機で煎ります。淵のないマグ、
+                        大きめの窓、それからいつも静かに流れる音楽。<br>
+                        特別なことはしていません。ただ、日常にひと息つく場所を用意しているだけです。
+                    </p>
+                    <div class="staff-note">
+                        <span class="staff-avatar" aria-hidden="true">M</span>
+                        <p>「今日は冷えるので、カフェラテがおすすめです。」<span class="staff-name">— 店長 M.</span></p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Products Section -->
-        <section id="products" class="products section fade-in-section">
+        <!-- Products -->
+        <section id="products" class="section surface-low">
             <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title text-center">Products</h2>
+                <div class="section-head reveal">
+                    <p class="label">Products</p>
+                    <h2 class="headline">豆と、日々の道具。</h2>
                 </div>
-                <div class="products-grid">
-                    <a href="#" class="product-item">
-                        <div class="product-image">
-                            <img src="assets/images/product_mug_1777576722730.png" alt="SLOWDAY オリジナルマグ" loading="lazy">
+                <div class="product-grid">
+                    <a href="#contact" class="card product-card reveal">
+                        <div class="product-img">
+                            <img src="assets/images/beans.png" alt="SLOWDAYオリジナルブレンドのコーヒー豆" loading="lazy">
                         </div>
-                        <h3 class="product-name">Original Matte Mug</h3>
-                        <p class="product-price">¥2,400</p>
+                        <div class="product-body">
+                            <h3 class="title">House Blend Beans</h3>
+                            <p class="body-small">週替わりで焙煎する中煎りのブレンド。200g。</p>
+                            <p class="product-price">¥1,800</p>
+                        </div>
                     </a>
-                    <a href="#" class="product-item">
-                        <div class="product-image">
-                            <img src="assets/images/hero_coffee_window_1777576684182.png" alt="コーヒー豆" loading="lazy">
+                    <a href="#contact" class="card product-card reveal" style="--reveal-delay:.08s">
+                        <div class="product-img">
+                            <img src="assets/images/mug.png" alt="SLOWDAYのオリジナルマグカップ" loading="lazy">
                         </div>
-                        <h3 class="product-name">House Blend Coffee Beans (200g)</h3>
-                        <p class="product-price">¥1,800</p>
+                        <div class="product-body">
+                            <h3 class="title">Original Matte Mug</h3>
+                            <p class="body-small">店内で使っているのと同じ、淵のないマグカップ。</p>
+                            <p class="product-price">¥2,400</p>
+                        </div>
                     </a>
-                    <!-- More items can be added here -->
                 </div>
-                <div class="btn-wrapper text-center">
-                    <a href="#" class="btn">View All Menu</a>
+                <div class="center reveal">
+                    <a href="#contact" class="btn btn-tonal">取り置きのお問い合わせ</a>
                 </div>
             </div>
         </section>
 
-        <!-- Journal Section -->
-        <section id="journal" class="journal section fade-in-section">
+        <!-- Journal -->
+        <section id="journal" class="section">
             <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Journal</h2>
-                    <p class="section-sub">日常の切り取り</p>
+                <div class="section-head reveal">
+                    <p class="label">Journal</p>
+                    <h2 class="headline">日々の、きろく。</h2>
                 </div>
-                <div class="journal-list">
-                    <article class="journal-item">
-                        <a href="#">
-                            <div class="journal-image">
-                                <img src="assets/images/journal_book_1777576737063.png" alt="朝のルーティン" loading="lazy">
-                            </div>
-                            <div class="journal-info">
-                                <time datetime="2026-04-20">2026.04.20</time>
-                                <h3 class="journal-title">休日の朝、ベッドの中で本を読む時間</h3>
-                            </div>
-                        </a>
-                    </article>
-                    <article class="journal-item">
-                        <a href="#">
-                            <div class="journal-image">
-                                <img src="assets/images/hero_coffee_window_1777576684182.png" alt="雨の日の過ごし方" loading="lazy">
-                            </div>
-                            <div class="journal-info">
-                                <time datetime="2026-04-15">2026.04.15</time>
-                                <h3 class="journal-title">雨の日に聴きたい、静かなプレイリスト</h3>
-                            </div>
-                        </a>
-                    </article>
-                </div>
-                <div class="btn-wrapper text-center">
-                    <a href="#" class="btn">Read More</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Access Section -->
-        <section id="access" class="access section fade-in-section">
-            <div class="container grid-layout reverse">
-                <div class="grid-image">
-                    <img src="assets/images/exterior_cafe_1777576752326.png" alt="SLOWDAYの外観" loading="lazy">
-                </div>
-                <div class="grid-text">
-                    <h2 class="section-title">Access</h2>
-                    <div class="access-info">
-                        <p class="access-name">SLOWDAY RIAN</p>
-                        <p class="access-address">
-                            〒300-xxxx<br>
-                            茨城県xxx x-x-x<br>
-                             きさらぎ駅 徒歩30分
-                        </p>
-                        <div class="access-time">
-                            <p>Open: 9:00 - 18:00</p>
-                            <p>Closed: Wednesday</p>
+                <div class="journal-grid">
+                    <a href="#journal" class="card journal-card reveal">
+                        <div class="journal-img">
+                            <img src="assets/images/journal-book.png" alt="白い寝具の上に開いた本とコーヒー" loading="lazy">
                         </div>
-                    </div>
+                        <div class="journal-body">
+                            <time datetime="2026-09-14">2026.09.14</time>
+                            <h3 class="title">休日の朝は、ベッドの中で本を読む</h3>
+                        </div>
+                    </a>
+                    <a href="#journal" class="card journal-card reveal" style="--reveal-delay:.08s">
+                        <div class="journal-img">
+                            <img src="assets/images/rain.png" alt="雨の窓辺のレコードプレーヤーとコーヒー" loading="lazy">
+                        </div>
+                        <div class="journal-body">
+                            <time datetime="2026-09-06">2026.09.06</time>
+                            <h3 class="title">雨の日に聴きたい、静かなプレイリスト</h3>
+                        </div>
+                    </a>
+                    <a href="#journal" class="card journal-card reveal" style="--reveal-delay:.16s">
+                        <div class="journal-img">
+                            <img src="assets/images/exterior.png" alt="SLOWDAYの店先のベンチで珈琲を飲む人" loading="lazy">
+                        </div>
+                        <div class="journal-body">
+                            <time datetime="2026-08-22">2026.08.22</time>
+                            <h3 class="title">店先のベンチに、今日も誰かの時間</h3>
+                        </div>
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="contact section fade-in-section">
-            <div class="container">
-                <div class="section-header text-center">
-                    <h2 class="section-title">Contact</h2>
+        <!-- Access -->
+        <section id="access" class="section surface-low">
+            <div class="container two-col reverse">
+                <div class="reveal">
+                    <p class="label">Access</p>
+                    <h2 class="headline">店へは、<br>ゆっくり来てください。</h2>
+                    <dl class="access-list">
+                        <div><dt>住所</dt><dd>茨城県水戸市三の丸<br>JR水戸駅 北口 徒歩8分</dd></div>
+                        <div><dt>営業時間</dt><dd>9:00 — 18:00（L.O. 17:30）</dd></div>
+                        <div><dt>定休日</dt><dd>水曜日</dd></div>
+                        <div><dt>座席</dt><dd>カウンター6席、テーブル6席（全12席）</dd></div>
+                    </dl>
                 </div>
-                <form class="contact-form">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" placeholder="お名前" required>
+                <figure class="media-frame reveal" style="--reveal-delay:.1s">
+                    <img src="assets/images/exterior.png" alt="SLOWDAYの外観。木枠の窓のあるコンクリートの店舗" loading="lazy">
+                </figure>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="section">
+            <div class="container narrow">
+                <div class="section-head center reveal">
+                    <p class="label">Contact</p>
+                    <h2 class="headline">ご予約・お問い合わせ</h2>
+                    <p class="body">豆の取り置きや、少人数での貸し切りについてもこちらからどうぞ。</p>
+                </div>
+                <form class="contact-form reveal" id="contact-form" novalidate>
+                    <div class="field">
+                        <label for="name">お名前</label>
+                        <input type="text" id="name" name="name" placeholder="山田 花子" required>
                     </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="メールアドレス" required>
+                    <div class="field">
+                        <label for="email">メールアドレス</label>
+                        <input type="email" id="email" name="email" placeholder="hello@example.com" required>
                     </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="5" placeholder="お問い合わせ内容" required></textarea>
+                    <div class="field">
+                        <label for="message">内容</label>
+                        <textarea id="message" name="message" rows="4" placeholder="ご用件をどうぞ" required></textarea>
                     </div>
-                    <div class="btn-wrapper text-center">
-                        <button type="submit" class="btn submit-btn">Send</button>
+                    <div class="center">
+                        <button type="submit" class="btn btn-filled btn-large">送信する</button>
                     </div>
                 </form>
             </div>
         </section>
     </main>
 
+    <!-- Footer -->
     <footer class="footer">
-        <div class="footer-inner">
-            <h2 class="footer-logo">SLOWDAY</h2>
+        <div class="container footer-inner">
+            <p class="footer-brand">SLOWDAY</p>
+            <nav class="footer-nav" aria-label="フッターナビゲーション">
+                <a href="#about">About</a>
+                <a href="#products">Products</a>
+                <a href="#journal">Journal</a>
+                <a href="#access">Access</a>
+                <a href="#contact">Contact</a>
+            </nav>
             <div class="footer-links">
-                <a href="#">Instagram</a>
-                <a href="#">Spotify</a>
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer">Spotify</a>
             </div>
-            <p class="copyright">&copy; 2026 created by RIAN<br>
-            <a href="https://rian-f.gyutanpafe.com/rian/" class="footer-social-link" id="footer-x" target="_blank" rel="noopener noreferrer"
-            aria-label="X (Twitter)">next portfolio</a>
-            
+            <p class="copyright">&copy; 2026 SLOWDAY — Created by polapath<br>
+                <span class="demo-note">※ このサイトはデモ用です。実在の店舗・商品・価格とは関係ありません。</span>
             </p>
         </div>
     </footer>
+
+    <!-- Back to top FAB -->
+    <button class="fab js-fab" aria-label="ページ上部へ戻る" hidden>
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12 4l7 7-1.4 1.4L13 7.8V20h-2V7.8l-4.6 4.6L5 11z"/></svg>
+    </button>
+
+    <!-- Snackbar -->
+    <div class="snackbar js-snackbar" role="status" aria-live="polite">
+        ありがとうございます。近日中にご返信いたします。
+        <button class="snackbar-close js-snackbar-close">閉じる</button>
+    </div>
 
     <script src="script.js"></script>
 </body>
